@@ -16,9 +16,10 @@
             text-align: center;
             padding: 20px;
         }
-        h1 {
+        h1, #response {
             color: #d63384;
             font-family: cursive, sans-serif;
+            font-size: 24px;
         }
         .buttons {
             position: relative;
@@ -48,6 +49,9 @@
             color: white;
             position: relative;
         }
+        .hidden {
+            display: none;
+        }
         @media (max-width: 400px) {
             button {
                 font-size: 16px;
@@ -57,14 +61,17 @@
     </style>
 </head>
 <body>
-    <h1>Will You Be My Valentine? 💖</h1>
+    <h1 id="question">Will You Be My Valentine? 💖</h1>
     <div class="buttons">
-        <button id="yes" onclick="alert('Yay! ❤️')">Yes</button>
+        <button id="yes" onclick="acceptProposal()">Yes</button>
         <button id="no">No</button>
     </div>
+    <p id="response" class="hidden">Awesome! See you then! <3</p>
     <script>
         const noButton = document.getElementById("no");
         const buttonsContainer = document.querySelector(".buttons");
+        const question = document.getElementById("question");
+        const response = document.getElementById("response");
         
         function moveNoButton() {
             let newX, newY;
@@ -77,6 +84,12 @@
             noButton.style.transform = `translate(${newX}px, ${newY}px)`;
         }
         
+        function acceptProposal() {
+            question.classList.add("hidden");
+            buttonsContainer.classList.add("hidden");
+            response.classList.remove("hidden");
+        }
+        
         noButton.addEventListener("mouseover", moveNoButton);
         noButton.addEventListener("touchstart", function(event) {
             event.preventDefault();
@@ -85,4 +98,3 @@
     </script>
 </body>
 </html>
-
