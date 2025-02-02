@@ -13,13 +13,22 @@
             flex-direction: column;
             background-color: #ffcccc;
             font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
         }
         h1 {
             color: #d63384;
+            font-family: cursive, sans-serif;
         }
         .buttons {
             position: relative;
             margin-top: 20px;
+            width: 90%;
+            max-width: 300px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         button {
             padding: 10px 20px;
@@ -32,11 +41,18 @@
         #yes {
             background-color: #28a745;
             color: white;
+            position: relative;
         }
         #no {
             background-color: #dc3545;
             color: white;
             position: relative;
+        }
+        @media (max-width: 400px) {
+            button {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
         }
     </style>
 </head>
@@ -48,9 +64,25 @@
     </div>
     <script>
         const noButton = document.getElementById("no");
-        noButton.addEventListener("mouseover", function() {
-            noButton.style.transform = `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px)`;
+        const buttonsContainer = document.querySelector(".buttons");
+        
+        function moveNoButton() {
+            let newX, newY;
+            do {
+                newX = Math.random() * (buttonsContainer.clientWidth - noButton.clientWidth);
+                newY = Math.random() * (buttonsContainer.clientHeight - noButton.clientHeight);
+            } while (Math.abs(newX - 100) < 50 && Math.abs(newY - 30) < 30);
+            
+            noButton.style.position = "absolute";
+            noButton.style.transform = `translate(${newX}px, ${newY}px)`;
+        }
+        
+        noButton.addEventListener("mouseover", moveNoButton);
+        noButton.addEventListener("touchstart", function(event) {
+            event.preventDefault();
+            moveNoButton();
         });
     </script>
 </body>
 </html>
+
